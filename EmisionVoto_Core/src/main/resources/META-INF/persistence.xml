@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="ogm-mongodb"
+		transaction-type="JTA">
+		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+		<class>edu.cibertec.votoelectronico.domain.GrupoPolitico</class>
+		<class>edu.cibertec.votoelectronico.domain.Voto</class>
+		<properties>
+			<property name="hibernate.ogm.datastore.provider"
+				value="MONGODB" />
+			<property name="hibernate.ogm.datastore.host"
+				value="127.0.0.1:27017" />
+			<property name="hibernate.ogm.datastore.database"
+				value="votoelectronico_db" />
+			<property name="hibernate.ogm.datastore.create_database"
+				value="true" />
+			<property name="hibernate.ogm.datastore.username"
+				value="votoelectronico_admin" />
+			<property name="hibernate.ogm.datastore.password"
+				value="$votoelectronico_admin123.a" />
+			<property
+				name="hibernate.ogm.mongodb.authentication_database"
+				value="votoelectronico_db" />
+			<!-- <property name="hibernate.ogm.datastore.grid_dialect" -->
+			<!-- value="org.hibernate.ogm.dialect.mongodb.MongoDBDialect" /> -->
+
+			<property name="hibernate.transaction.jta.platform"
+				value="JBossTS" />
+
+<!-- 			<property name="hibernate.transaction.jta.platform" -->
+<!-- 				value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform" /> -->
+<!-- 			<property name="com.arjuna.ats.jta.jtaTMImplementation" -->
+<!-- 				value="com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple" /> -->
+<!-- 			<property name="com.arjuna.ats.jta.jtaUTImplementation" -->
+<!-- 				value="com.arjuna.ats.internal.jta.transaction.arjunacore.UserTransactionImple" /> -->
+
+		</properties>
+	</persistence-unit>
+</persistence>

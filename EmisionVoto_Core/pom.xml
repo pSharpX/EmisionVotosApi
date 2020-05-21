@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>EmisionVotoApp</artifactId>
+		<groupId>edu.cibertec.votoelectronico.application</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.cibertec.votoelectronico.core</groupId>
+	<artifactId>EmisionVoto_Core</artifactId>
+	<name>EmisionVoto_Core</name>
+	<url>http://www.cibertec.edu.pe</url>
+	<description>Hiberate OGM and MongoDB</description>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.finalName>EmisionVoto_Core</project.build.finalName>
+		<version.exec.plugin>1.6.0</version.exec.plugin>
+		<hibernate.ogm.version>5.4.1.Final</hibernate.ogm.version>
+		<version.jboss-transaction-api>1.0.1.Final</version.jboss-transaction-api>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate.ogm</groupId>
+			<artifactId>hibernate-ogm-mongodb</artifactId>
+			<version>${hibernate.ogm.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.transaction</groupId>
+			<artifactId>jboss-transaction-api_1.2_spec</artifactId>
+			<version>${version.jboss-transaction-api}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+
+		<!-- Add the Narayana Transactions Manager an implementation would be provided 
+			in a Java EE container, but this works nicely in Java SE as well -->
+		<dependency>
+			<groupId>org.jboss.narayana.jta</groupId>
+			<artifactId>narayana-jta</artifactId>
+			<version>5.9.2.Final</version>
+		</dependency>
+		<!-- <version>5.9.2.Final</version> -->
+
+		<!-- JBOSS JTA Standalone to work in Java SE -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.jbossts</groupId> -->
+		<!-- <artifactId>jbossjta</artifactId> -->
+		<!-- <version>4.16.4.Final</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss</groupId> -->
+		<!-- <artifactId>jboss-transaction-spi</artifactId> -->
+		<!-- </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.3m</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${version.jar.plugin}</version>
+				<configuration>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
