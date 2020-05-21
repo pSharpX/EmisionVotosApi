@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.cibertec.votoelectronico.application</groupId>
+	<version>1.0-SNAPSHOT</version>
+	<artifactId>EmisionVotoApp</artifactId>
+	<packaging>pom</packaging>
+	<name>EmisionVotoApp</name>
+	<modules>
+		<module>EmisionVoto_Api</module>
+		<module>EmisionVoto_Core</module>
+		<module>EmisionVoto_Mapper</module>
+	</modules>
+
+	<properties>
+		<project.build.finalName>EmisionVotoApp</project.build.finalName>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.compiler.plugin>3.8.0</version.compiler.plugin>
+		<version.jar.plugin>2.2</version.jar.plugin>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+		<org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+		<slf4j.version>1.6.1</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${version.jar.plugin}</version>
+				<configuration>
+				</configuration>
+			</plugin>
+			<!-- WildFly plugin to deploy war -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${version.wildfly.maven.plugin}</version>
+				<inherited>true</inherited>
+				<configuration>
+					<!-- <skip>true</skip> -->
+					<filename>${project.build.finalName}.war</filename>
+					<username>admin-jaad</username>
+					<password>$123456.a</password>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
