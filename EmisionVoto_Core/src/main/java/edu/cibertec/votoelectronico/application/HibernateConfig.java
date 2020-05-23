@@ -1,5 +1,7 @@
 package edu.cibertec.votoelectronico.application;
 
+import java.util.Properties;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
@@ -22,8 +24,23 @@ public class HibernateConfig {
 	private static final SessionFactory sessionFactory;
 	private static final ServiceRegistry serviceRegistry;
 
+	private final static String fileName = "database.properties";
+	private static Properties props;
+
+	private static final String HBN_DATASTORE_PROVIDER = "hibernate.ogm.datastore.provider";
+	private static final String HBN_DATASTORE_CREATE_DATABASE = "hibernate.ogm.datastore.create_database";
+	private static final String HBN_DATASTORE_DATABASE = "hibernate.ogm.datastore.database";
+	private static final String HBN_DATASTORE_USERNAME = "hibernate.ogm.datastore.username";
+	private static final String HBN_DATASTORE_PASSWORD = "hibernate.ogm.datastore.password";
+	private static final String HBN_DATASTORE_HOST = "hibernate.ogm.datastore.host";
+	private static final String HBN_DATASTORE_PORT = "hibernate.ogm.datastore.port";
+	private static final String HBN_MONGODB_AUTHENTICATION_DATABASE = "hibernate.ogm.mongodb.authentication_database";
+
 	static {
 		try {
+			props = new Properties();
+			props.load(HibernateConfig.class.getClassLoader().getResourceAsStream(fileName));
+
 			// create a new instance of OmgConfiguration
 			OgmConfiguration cfgogm = new OgmConfiguration();
 
@@ -44,16 +61,17 @@ public class HibernateConfig {
 //					"com.arjuna.ats.internal.jta.transaction.arjunacore.UserTransactionImple");
 
 			// configure MongoDB connection
-			cfgogm.setProperty("hibernate.ogm.datastore.provider", "mongodb");
+			cfgogm.setProperty(HBN_DATASTORE_PROVIDER, props.getProperty(HBN_DATASTORE_PROVIDER));
 //			cfgogm.setProperty("hibernate.ogm.datastore.grid_dialect",
 //					"org.hibernate.ogm.dialect.mongodb.MongoDBDialect");
-			cfgogm.setProperty("hibernate.ogm.datastore.create_database", "true");
-			cfgogm.setProperty("hibernate.ogm.datastore.database", "votoelectronico_db");
-			cfgogm.setProperty("hibernate.ogm.datastore.username", "votoelectronico_admin");
-			cfgogm.setProperty("hibernate.ogm.datastore.password", "$votoelectronico_admin123.a");
-			cfgogm.setProperty("hibernate.ogm.mongodb.authentication_database", "votoelectronico_db");
-			cfgogm.setProperty("hibernate.ogm.datastore.host", "127.0.0.1");
-			cfgogm.setProperty("hibernate.ogm.datastore.port", "27017");
+			cfgogm.setProperty(HBN_DATASTORE_CREATE_DATABASE, props.getProperty(HBN_DATASTORE_CREATE_DATABASE));
+			cfgogm.setProperty(HBN_DATASTORE_DATABASE, props.getProperty(HBN_DATASTORE_DATABASE));
+			cfgogm.setProperty(HBN_DATASTORE_USERNAME, props.getProperty(HBN_DATASTORE_USERNAME));
+			cfgogm.setProperty(HBN_DATASTORE_PASSWORD, props.getProperty(HBN_DATASTORE_PASSWORD));
+			cfgogm.setProperty(HBN_MONGODB_AUTHENTICATION_DATABASE,
+					props.getProperty(HBN_MONGODB_AUTHENTICATION_DATABASE));
+			cfgogm.setProperty(HBN_DATASTORE_HOST, props.getProperty(HBN_DATASTORE_HOST));
+			cfgogm.setProperty(HBN_DATASTORE_PORT, props.getProperty(HBN_DATASTORE_PORT));
 
 			// add our annotated class
 			cfgogm.addAnnotatedClass(GrupoPolitico.class);
