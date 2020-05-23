@@ -1,7 +1,6 @@
 package edu.cibertec.votoelectronico.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import edu.cibertec.votoelectronico.dto.validation.DniNotExist;
 import edu.cibertec.votoelectronico.dto.validation.GrupoPoliticoMustExist;
+import edu.cibertec.votoelectronico.dto.validation.ValidDate;
 
 @NotNull
 public class EmisionVotoDto implements Serializable {
@@ -28,7 +28,8 @@ public class EmisionVotoDto implements Serializable {
 	private String dni;
 
 	@NotNull(message = "Fecha cannot be null")
-	private Date fecha;
+	@ValidDate(message = "Invalid date. Required format is {format}")
+	private String fecha;
 
 	public String getGrupoPolitico() {
 		return grupoPolitico;
@@ -46,11 +47,11 @@ public class EmisionVotoDto implements Serializable {
 		this.dni = dni;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

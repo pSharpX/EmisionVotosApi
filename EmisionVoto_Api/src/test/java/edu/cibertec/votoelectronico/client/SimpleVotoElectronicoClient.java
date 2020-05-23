@@ -1,5 +1,6 @@
 package edu.cibertec.votoelectronico.client;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -64,7 +65,7 @@ public class SimpleVotoElectronicoClient {
 		EmisionVotoDto data = new EmisionVotoDto();
 		data.setDni(String.format("48048%s", randomWithRange(100, 999)));
 		data.setGrupoPolitico("P1");
-		data.setFecha(new Date());
+		data.setFecha((new SimpleDateFormat("yyyyMMddHHmmss")).format(new Date()));
 		CompletableFuture<EmisionVotoResponse> promise = httpClient
 				.postAsync("http://localhost:8080/v1/votoelectronico/emitir", data, null, EmisionVotoResponse.class);
 		LOG.info("Thread: [{}] - Promise has being called", Thread.currentThread().getId());
@@ -108,7 +109,7 @@ public class SimpleVotoElectronicoClient {
 		EmisionVotoDto data = new EmisionVotoDto();
 		data.setDni(String.format("48048%s", randomWithRange(100, 999)));
 		data.setGrupoPolitico("P1");
-		data.setFecha(new Date());
+		data.setFecha((new SimpleDateFormat("yyyyMMddHHmmss")).format(new Date()));
 		CompletableFuture<EmisionVotoResponse> promise = httpClient
 				.postAsync("http://localhost:8080/v1/votoelectronico/emitir", data, null, EmisionVotoResponse.class)
 				.thenApply((response) -> {
@@ -141,7 +142,7 @@ public class SimpleVotoElectronicoClient {
 		List<EmisionVotoDto> collection = new ArrayList<EmisionVotoDto>();
 		for (int i = 0; i < 10; i++) {
 			EmisionVotoDto emisionVotoDto = new EmisionVotoDto();
-			emisionVotoDto.setFecha(new Date());
+			emisionVotoDto.setFecha((new SimpleDateFormat("yyyyMMddHHmmss")).format(new Date()));
 			emisionVotoDto.setDni(String.format("48048%s", randomWithRange(100, 999)));
 			emisionVotoDto.setGrupoPolitico((i % 2) == 0 ? "P1" : "P2");
 			collection.add(emisionVotoDto);

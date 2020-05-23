@@ -12,7 +12,7 @@ public interface MSVotoDtoMapper extends VotoDtoMapper {
 
 	@Mapping(target = "votoId", source = "object.votoId")
 	@Mapping(target = "dni", source = "object.dni")
-	@Mapping(target = "fecha", source = "object.fecha")
+	@Mapping(target = "fecha", source = "object.fecha", dateFormat = "yyyyMMddHHmmss")
 	@Mapping(target = "grupoPolitico", source = "object.grupoPolitico.nombre")
 	VotoDto convertFrom(Voto object);
 
