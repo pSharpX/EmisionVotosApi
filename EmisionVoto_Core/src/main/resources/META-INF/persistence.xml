@@ -11,8 +11,12 @@
 		<properties>
 			<property name="hibernate.ogm.datastore.provider"
 				value="MONGODB" />
+			<!-- <property name="hibernate.ogm.datastore.host" -->
+			<!-- value="127.0.0.1:27017" /> -->
+			<!-- <property name="hibernate.ogm.datastore.host" -->
+			<!-- value="192.168.99.100:27018" /> -->
 			<property name="hibernate.ogm.datastore.host"
-				value="127.0.0.1:27017" />
+				value="mongo_emisionvotos:27017" />
 			<property name="hibernate.ogm.datastore.database"
 				value="votoelectronico_db" />
 			<property name="hibernate.ogm.datastore.create_database"
@@ -21,21 +25,27 @@
 				value="votoelectronico_admin" />
 			<property name="hibernate.ogm.datastore.password"
 				value="$votoelectronico_admin123.a" />
+			<!-- <property -->
+			<!-- name="hibernate.ogm.mongodb.authentication_database" -->
+			<!-- value="votoelectronico_db" /> -->
 			<property
-				name="hibernate.ogm.mongodb.authentication_database"
-				value="votoelectronico_db" />
+				name="hibernate.ogm.mongodb.authentication_database" value="admin" />
+
 			<!-- <property name="hibernate.ogm.datastore.grid_dialect" -->
 			<!-- value="org.hibernate.ogm.dialect.mongodb.MongoDBDialect" /> -->
 
 			<property name="hibernate.transaction.jta.platform"
 				value="JBossTS" />
 
-<!-- 			<property name="hibernate.transaction.jta.platform" -->
-<!-- 				value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform" /> -->
-<!-- 			<property name="com.arjuna.ats.jta.jtaTMImplementation" -->
-<!-- 				value="com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple" /> -->
-<!-- 			<property name="com.arjuna.ats.jta.jtaUTImplementation" -->
-<!-- 				value="com.arjuna.ats.internal.jta.transaction.arjunacore.UserTransactionImple" /> -->
+			<!-- <property name="hibernate.transaction.jta.platform" -->
+			<!-- value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform" 
+				/> -->
+			<!-- <property name="com.arjuna.ats.jta.jtaTMImplementation" -->
+			<!-- value="com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple" 
+				/> -->
+			<!-- <property name="com.arjuna.ats.jta.jtaUTImplementation" -->
+			<!-- value="com.arjuna.ats.internal.jta.transaction.arjunacore.UserTransactionImple" 
+				/> -->
 
 		</properties>
 	</persistence-unit>

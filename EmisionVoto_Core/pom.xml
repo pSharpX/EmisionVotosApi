@@ -37,11 +37,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
-		<dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>javax.ejb-api</artifactId>
-			<version>3.2.2</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>javax.ejb</groupId> -->
+		<!-- <artifactId>javax.ejb-api</artifactId> -->
+		<!-- <version>3.2.2</version> -->
+		<!-- </dependency> -->
 
 		<!-- Add the Narayana Transactions Manager an implementation would be provided 
 			in a Java EE container, but this works nicely in Java SE as well -->
