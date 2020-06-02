@@ -15,13 +15,16 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
+import edu.cibertec.votoelectronico.client.base.HttpClient;
+
 //@AsyncHttpClientQualifier
 public class JAXRSAsyncHttpClient implements CommonAsyncHttpClient {
 
 	private final Logger LOG = LoggerFactory.getLogger(JAXRSAsyncHttpClient.class);
 
 	@Override
-	public <T, E> CompletableFuture<T> requestAsync(String path, REQUEST_METHOD method, E entity,
+	public <T, E> CompletableFuture<T> requestAsync(String path, HttpClient.REQUEST_METHOD method, E entity,
 			Map<String, Object> header, Class<T> responseType) {
 		return CompletableFuture.supplyAsync(() -> {
 			Client client = ClientBuilder.newBuilder().build();

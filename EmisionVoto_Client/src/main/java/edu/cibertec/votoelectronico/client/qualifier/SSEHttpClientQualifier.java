@@ -1,4 +1,4 @@
-package edu.cibertec.votoelectronico.client;
+package edu.cibertec.votoelectronico.client.qualifier;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +10,6 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.FIELD, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER })
-public @interface AsyncHttpClientQualifier {
+public @interface SSEHttpClientQualifier {
 
 }

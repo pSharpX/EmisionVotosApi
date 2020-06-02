@@ -11,6 +11,7 @@
 		<module>EmisionVoto_Api</module>
 		<module>EmisionVoto_Core</module>
 		<module>EmisionVoto_Mapper</module>
+		<module>EmisionVoto_Client</module>
 	</modules>
 
 	<properties>

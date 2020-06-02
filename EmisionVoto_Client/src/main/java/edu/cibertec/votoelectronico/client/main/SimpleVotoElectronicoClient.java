@@ -1,10 +1,12 @@
-package edu.cibertec.votoelectronico.client;
+package edu.cibertec.votoelectronico.client.main;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -14,16 +16,31 @@ import javax.enterprise.inject.se.SeContainerInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.cibertec.votoelectronico.client.JAXRSAsyncHttpClient;
+import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
+import edu.cibertec.votoelectronico.client.communication.EmisionVotoResponse;
+import edu.cibertec.votoelectronico.client.communication.ListVotoResponse;
+import edu.cibertec.votoelectronico.client.communication.ResumenProcesoResponse;
 import edu.cibertec.votoelectronico.dto.EmisionVotoDto;
-import edu.cibertec.votoelectronico.resource.communication.EmisionVotoResponse;
-import edu.cibertec.votoelectronico.resource.communication.ListVotoResponse;
-import edu.cibertec.votoelectronico.resource.communication.ResumenProcesoResponse;
 
 public class SimpleVotoElectronicoClient {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleVotoElectronicoClient.class);
 
 	private CommonAsyncHttpClient httpClient;
+	private Properties props;
+
+	private final String CONST_VOTOELECTRONICO_API_HOSTNAME = "edu.cibertec.votoelectronico.hostname";
+	private final String CONST_VOTOELECTRONICO_API_PATH = "edu.cibertec.votoelectronico.path";
+
+	public SimpleVotoElectronicoClient() {
+		this.props = new Properties();
+		try {
+			this.props.load(getClass().getResourceAsStream("application.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setHttpClient(CommonAsyncHttpClient httpClient) {
 		this.httpClient = httpClient;

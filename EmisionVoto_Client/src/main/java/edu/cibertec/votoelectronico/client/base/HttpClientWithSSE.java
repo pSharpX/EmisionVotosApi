@@ -1,4 +1,4 @@
-package edu.cibertec.votoelectronico.client;
+package edu.cibertec.votoelectronico.client.base;
 
 import java.util.Map;
 import java.util.function.Consumer;

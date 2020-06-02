@@ -1,4 +1,4 @@
-package edu.cibertec.votoelectronico.client;
+package edu.cibertec.votoelectronico.client.main;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
@@ -6,7 +6,9 @@ import javax.enterprise.inject.se.SeContainerInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.cibertec.votoelectronico.resource.communication.ResumenProcesoResponse;
+import edu.cibertec.votoelectronico.client.JAXRSAsyncHttpClientWithSSE;
+import edu.cibertec.votoelectronico.client.base.HttpClientWithSSE;
+import edu.cibertec.votoelectronico.client.communication.ResumenProcesoResponse;
 
 public class SimpleSSEVotoElectronicoClient {
 
@@ -19,7 +21,7 @@ public class SimpleSSEVotoElectronicoClient {
 	}
 
 	public void listenForResultadoProcesoUpdate() {
-		this.httpClient.listenOn("http://localhost:8080/api/v1/votoelectronico/subscribe/resultado", null,
+		this.httpClient.listenOn("http://192.168.99.100:8080/api/v1/votoelectronico/subscribe/resultado", null,
 				(response) -> {
 					LOG.info(response.toString());
 				}, ResumenProcesoResponse.class);

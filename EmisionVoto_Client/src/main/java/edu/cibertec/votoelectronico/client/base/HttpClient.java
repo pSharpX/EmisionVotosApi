@@ -1,12 +1,12 @@
-package edu.cibertec.votoelectronico.client;
+package edu.cibertec.votoelectronico.client.base;
 
 import java.util.Map;
 
-enum REQUEST_METHOD {
-	GET, POST, PUT, DELETE
-}
-
 public interface HttpClient<T, E> {
+
+	public enum REQUEST_METHOD {
+		GET, POST, PUT, DELETE
+	}
 
 	public T request(String path, REQUEST_METHOD method, E entity, Map<String, Object> header);
 
