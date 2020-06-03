@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+import javax.enterprise.context.Dependent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -17,8 +18,10 @@ import org.slf4j.LoggerFactory;
 
 import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
 import edu.cibertec.votoelectronico.client.base.HttpClient;
+import edu.cibertec.votoelectronico.client.qualifier.AsyncHttpClientQualifier;
 
-//@AsyncHttpClientQualifier
+@AsyncHttpClientQualifier
+@Dependent
 public class JAXRSAsyncHttpClient implements CommonAsyncHttpClient {
 
 	private final Logger LOG = LoggerFactory.getLogger(JAXRSAsyncHttpClient.class);
@@ -46,10 +49,10 @@ public class JAXRSAsyncHttpClient implements CommonAsyncHttpClient {
 				response = builder.post(Entity.json(entity));
 				break;
 			case PUT:
-				response = builder.get();
+				response = builder.put(Entity.json(entity));
 				break;
 			case DELETE:
-				response = builder.get();
+				response = builder.delete();
 				break;
 			default:
 				response = builder.get();

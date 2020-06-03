@@ -10,45 +10,45 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.cibertec.votoelectronico.client.JAXRSAsyncHttpClient;
 import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
 import edu.cibertec.votoelectronico.client.communication.EmisionVotoResponse;
 import edu.cibertec.votoelectronico.client.communication.ListVotoResponse;
 import edu.cibertec.votoelectronico.client.communication.ResumenProcesoResponse;
+import edu.cibertec.votoelectronico.client.util.AppGetPropertyValues;
 import edu.cibertec.votoelectronico.dto.EmisionVotoDto;
 
+@ApplicationScoped
 public class SimpleVotoElectronicoClient {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleVotoElectronicoClient.class);
 
+	@Inject
 	private CommonAsyncHttpClient httpClient;
-	private Properties props;
+	@Inject
+	private AppGetPropertyValues props;
+
+	private String endpoint;
 
 	private final String CONST_VOTOELECTRONICO_API_HOSTNAME = "edu.cibertec.votoelectronico.hostname";
 	private final String CONST_VOTOELECTRONICO_API_PATH = "edu.cibertec.votoelectronico.path";
 
-	public SimpleVotoElectronicoClient() {
-		this.props = new Properties();
-		try {
-			this.props.load(getClass().getResourceAsStream("application.properties"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void setHttpClient(CommonAsyncHttpClient httpClient) {
-		this.httpClient = httpClient;
+	@PostConstruct
+	public void init() throws IOException {
+		Properties properties = this.props.getPropValues();
+		this.endpoint = String.format("%s%s", properties.get(CONST_VOTOELECTRONICO_API_HOSTNAME),
+				properties.get(CONST_VOTOELECTRONICO_API_PATH));
 	}
 
 	public void getResumenProcesoAsync() {
-		CompletableFuture<ResumenProcesoResponse> promise = httpClient
-				.getAsync("http://localhost:8080/v1/votoelectronico/resultado", null, ResumenProcesoResponse.class);
+		CompletableFuture<ResumenProcesoResponse> promise = httpClient.getAsync(
+				String.format("%s/votoelectronico/resultado", this.endpoint), null, ResumenProcesoResponse.class);
 		LOG.info("Thread: [{}] - Promise has being called", Thread.currentThread().getId());
 
 		promise.thenApplyAsync((ResumenProcesoResponse response) -> {
@@ -170,32 +170,6 @@ public class SimpleVotoElectronicoClient {
 	private int randomWithRange(int min, int max) {
 		int range = (max - min) + 1;
 		return (int) (Math.random() * range) + min;
-	}
-
-	public static void main(String[] args) {
-		try {
-			SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-			try (SeContainer container = initializer.disableDiscovery().addPackages(SimpleVotoElectronicoClient.class)
-					.initialize()) {
-				CommonAsyncHttpClient httpClient = container.select(JAXRSAsyncHttpClient.class).get();
-				SimpleVotoElectronicoClient client = new SimpleVotoElectronicoClient();
-				client.setHttpClient(httpClient);
-				client.getResumenProcesoAsync();
-//				client.getListadoVotosAsync();
-//				client.createEmitirVotoAsync();
-//				client.createCollectionEmitirVotoAsync();
-//				client.createEmitirVotoThenGetListadoVotosAsyncAndGetResumenProcesoAsync();
-				LOG.info("Thread: [{}]", Thread.currentThread().getId());
-				LOG.info("Thread: [{}] - Running task 1", Thread.currentThread().getId());
-				LOG.info("Thread: [{}] - Running task 2", Thread.currentThread().getId());
-				LOG.info("Thread: [{}] - Running task 3", Thread.currentThread().getId());
-
-				while (true) {
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

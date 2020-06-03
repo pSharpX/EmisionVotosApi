@@ -1,9 +1,12 @@
 package edu.cibertec.votoelectronico.client;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 //import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 //import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -14,23 +17,19 @@ import javax.ws.rs.sse.SseEventSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
+import edu.cibertec.votoelectronico.client.base.HttpClient.REQUEST_METHOD;
+import edu.cibertec.votoelectronico.client.qualifier.AsyncHttpClientQualifier;
 import edu.cibertec.votoelectronico.client.base.HttpClientWithSSE;
 
-//@SSEHttpClientQualifier
-public class JAXRSAsyncHttpClientWithSSE implements
-//CommonAsyncHttpClient, 
-		HttpClientWithSSE {
+@Dependent
+public class JAXRSAsyncHttpClientWithSSE implements HttpClientWithSSE {
 
 	private final Logger LOG = LoggerFactory.getLogger(JAXRSAsyncHttpClientWithSSE.class);
 
-//	@Inject
-//	private CommonAsyncHttpClient httpClient;
-
-//	@Override
-//	public <T, E> CompletableFuture<T> requestAsync(String path, REQUEST_METHOD method, E entity,
-//			Map<String, Object> header, Class<T> responseType) {
-//		return httpClient.requestAsync(path, method, entity, header, responseType);
-//	}
+	@Inject
+	@AsyncHttpClientQualifier
+	private CommonAsyncHttpClient httpClient;
 
 	@Override
 	public <T> SseEventSource listenOn(String path, Map<String, Object> header, Consumer<T> consumer,
@@ -49,6 +48,12 @@ public class JAXRSAsyncHttpClientWithSSE implements
 		});
 		source.open();
 		return source;
+	}
+
+	@Override
+	public <T, E> CompletableFuture<T> requestAsync(String path, REQUEST_METHOD method, E entity,
+			Map<String, Object> header, Class<T> responseType) {
+		return this.httpClient.requestAsync(path, method, entity, header, responseType);
 	}
 
 }
