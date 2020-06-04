@@ -2,7 +2,7 @@ package edu.cibertec.votoelectronico.client.communication;
 
 import java.util.Collection;
 
-import edu.cibertec.votoelectronico.dto.VotoDto;
+import edu.cibertec.votoelectronico.client.dto.VotoDto;
 
 public class ListVotoResponse extends BaseResponse {
 

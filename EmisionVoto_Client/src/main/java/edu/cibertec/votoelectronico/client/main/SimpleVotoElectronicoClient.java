@@ -21,8 +21,8 @@ import edu.cibertec.votoelectronico.client.base.CommonAsyncHttpClient;
 import edu.cibertec.votoelectronico.client.communication.EmisionVotoResponse;
 import edu.cibertec.votoelectronico.client.communication.ListVotoResponse;
 import edu.cibertec.votoelectronico.client.communication.ResumenProcesoResponse;
+import edu.cibertec.votoelectronico.client.dto.EmisionVotoDto;
 import edu.cibertec.votoelectronico.client.util.AppGetPropertyValues;
-import edu.cibertec.votoelectronico.dto.EmisionVotoDto;
 
 @ApplicationScoped
 public class SimpleVotoElectronicoClient {

@@ -1,6 +1,6 @@
 package edu.cibertec.votoelectronico.client.communication;
 
-import edu.cibertec.votoelectronico.dto.VotoDto;
+import edu.cibertec.votoelectronico.client.dto.VotoDto;
 
 public class EmisionVotoResponse extends BaseResponse {
 
